@@ -1,0 +1,20 @@
+{
+  "name": "if",
+  "version": "1.0.0",
+  "description": "Interactive Fiction Generator",
+  "main": "server.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willstepp/if.git"
+  },
+  "author": "Daniel Stepp <willstepp@gmail.com> (http://monomyth.io)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/willstepp/if/issues"
+  },
+  "homepage": "https://github.com/willstepp/if#readme",
+  "dependencies": {
+    "webpack": "^1.12.11"
+  }
+}
