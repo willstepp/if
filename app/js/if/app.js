@@ -25,9 +25,14 @@ ifw.app = (function () {
     utils = utls;
     logger = lggr;
   }
+
+  function start () {
+    
+  }
   
   return {
     init:init,
+    start:start,
     receiveMessage:receiveMessage
   };
 
