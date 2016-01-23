@@ -11,8 +11,21 @@ ifw.utils = (function () {
     return [idPrefix, type, moment().unix()].join('-');
   }
 
+  function projectTemplate () {
+    return {
+      created:null,
+      updated:null,
+      author:null,
+      title:null,
+      navs:{},
+      passages:{},
+      groups:[]
+    };
+  }
+
   return {
-    genId:genId
+    genId:genId,
+    projectTemplate:projectTemplate
   };
 
 })();

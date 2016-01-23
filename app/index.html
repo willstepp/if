@@ -8,18 +8,17 @@
     <div>
       <h2>IF - Interactive Fiction Writer</h2>
       <hr>
-      <div id="ui-new-story-content" class="hide">
-        <input id="ui-create-story-title" type="text" placeholder="Title"/>
-        <input id="ui-create-story-author" type="text" placeholder="Author"/>
-        <button id="ui-create-story-button">Create new story</button>
+      <div id="ui-new-project-content">
+        <input id="ui-create-project-title" type="text" placeholder="Title"/>
+        <input id="ui-create-project-author" type="text" placeholder="Author"/>
+        <button id="ui-create-project-button">Create new story</button>
       </div>
-      <div id="ui-edit-story-content" class="hide">
-        <h3 id="ui-story-title"></h3>
-        <div id="ui-story-tree"></div>
-        <div id="ui-story-section"></div>
+      <div id="ui-edit-project-content" class="hide">
+        <h3 id="ui-project-title"></h3>
+        <div id="ui-project-tree"></div>
+        <div id="ui-project-section"></div>
       </div>
     </div>
-    <script src="js/app.js"></script>
     <script src="js/if/init.js"></script>
     <script src="js/if/messenger.js"></script>
     <script src="js/if/app.js"></script>
@@ -27,6 +26,7 @@
     <script src="js/if/ui.js"></script>
     <script src="js/if/exporter.js"></script>
     <script src="js/if/logger.js"></script>
+    <script src="js/if/utils.js"></script>
     <script>
       ifw.init();
     </script>

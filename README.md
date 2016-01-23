@@ -3,6 +3,8 @@
 ##TODO
 
 * Persist story in localStorage, using save and load functions
+* Create UI state machine to transition views
+
 * Display story section in edit area
 * Render story tree
 * Create links to existing and new sections

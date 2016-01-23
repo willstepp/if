@@ -1,9 +1,20 @@
+/* global: moment */
+
 var ifw = ifw || {};
 ifw.app = (function () {
 
   'use strict';
 
-  function createStory (story) {
+  var project = null;
+
+  function createProject (fields) {
+
+    project = utils.projectTemplate();
+    project.title = fields.title;
+    project.author = fields.author;
+
+    logger.add('creating project...');
+    logger.add(project);
 
   }
 
@@ -12,7 +23,7 @@ ifw.app = (function () {
   var logger = null;
 
   var responders = {
-    'ifw-app-create-story':createStory
+    'ifw-app-create-project':createProject
   };
 
   function receiveMessage (msg) {

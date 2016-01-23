@@ -28,19 +28,22 @@ ifw.ui = (function () {
     });
   }
 
-  function createStory (story) {
-    sendMessage('ifw-app-create-story', story);
+  function createProject (project) {
+    sendMessage('ifw-app-create-project', project);
+  }
+
+  function value (id) {
+    return document.getElementById(id).value;
   }
 
   function setupCreateStoryEvent () {
-    var createStoryButton = document.getElementById('ui-create-story-button');
-    createStoryButton.addEventListener("click", function (e) {
-      e.preventDefault();
+    var button = document.getElementById('ui-create-project-button');
+    button.addEventListener('click', function (e) {
 
-      var title = document.getElementById('ui-create-story-title').value;
-      var author = document.getElementById('ui-create-story-author').value;
+      var title = value('ui-create-project-title');
+      var author = value('ui-create-project-author');
 
-      createStory({
+      createProject({
         title:title,
         author:author
       });
