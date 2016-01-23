@@ -18,6 +18,7 @@ ifw.store = (function () {
   function init (msgr, lggr, utls) {
     messenger = msgr;
     messenger.add(receiveMessage);
+    
     utils = utls;
     logger = lggr;
   }
