@@ -32,14 +32,21 @@ ifw.ui = (function () {
     sendMessage('ifw-app-create-project', project);
   }
 
-  function value (id) {
-    return document.getElementById(id).value;
+  function el (id) {
+    return document.getElementById(id);
   }
 
-  function setupCreateStoryEvent () {
-    var button = document.getElementById('ui-create-project-button');
-    button.addEventListener('click', function (e) {
+  function handleEvent(id, type, callback) {
+    el(id).addEventListener(type, callback);
+  }
 
+  function value (id) {
+    return el(id).value;
+  }
+
+  function setupCreateProjectEvent () {
+
+    handleEvent('ui-create-project-button', 'click', function (e) {
       var title = value('ui-create-project-title');
       var author = value('ui-create-project-author');
 
@@ -47,12 +54,12 @@ ifw.ui = (function () {
         title:title,
         author:author
       });
-
     });
+
   }
 
   function setupEventHandlers () {
-    setupCreateStoryEvent();
+    setupCreateProjectEvent();
   }
 
   function init (msgr, lggr, utls) {
