@@ -2,21 +2,21 @@
 
 ##TODO
 
--) Persist story in localStorage, using save and load functions
--) Display story section in edit area
--) Render story tree
--) Create links to existing and new sections
--) Export story as JSON
--) Export story as HTML
--) Export story as PDF
--) Export story as ePub
--) Export story as Kindle
+* Persist story in localStorage, using save and load functions
+* Display story section in edit area
+* Render story tree
+* Create links to existing and new sections
+* Export story as JSON
+* Export story as HTML
+* Export story as PDF
+* Export story as ePub
+* Export story as Kindle
 
 
 Doing this, you don't duplicate content and allow the node to be aware of its 
 location in the tree.
 
-Text is Markdown, where the links in the format of [text](<section id>).
+Text is Markdown, where the links in the format of `[text](<section id>)`.
 
 Use Vue.js for both tree and markdown editor
 
@@ -26,7 +26,7 @@ Use Vue.js for both tree and markdown editor
    The benefit of this is that you can easily generate multiple entry points to the same 
    section, with an easy reference in the data model to go back if required.
 
-
+```
 {
   "title":"Fetus",
   "author":"Daniel Stepp",
@@ -60,4 +60,4 @@ Use Vue.js for both tree and markdown editor
     }
   ]
 }
-
+```
