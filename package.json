@@ -2,7 +2,6 @@
   "name": "if",
   "version": "1.0.0",
   "description": "Interactive Fiction Generator",
-  "main": "server.js",
   "scripts": {},
   "repository": {
     "type": "git",
@@ -15,6 +14,11 @@
   },
   "homepage": "https://github.com/willstepp/if#readme",
   "dependencies": {
-    "webpack": "^1.12.11"
-  }
+    "express": "^4.13.4",
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^2.0.0",
+    "jshint": "^2.9.1",
+    "marked": "^0.3.5"
+  },
+  "jshintConfig":{}
 }
