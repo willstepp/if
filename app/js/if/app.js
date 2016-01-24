@@ -12,7 +12,8 @@ ifw.app = (function () {
       author:fields.author
     });
     saveProject(project, function (res) {
-      nofify({
+      showView({state:'project-view', data:project});
+      notify({
         status:res.status,
         message:res.message
       });
@@ -29,13 +30,32 @@ ifw.app = (function () {
     });
   }
 
+  function loadProjectFromFile (newProject) {
+    project = newProject;
+    saveProject(project, function (res) {
+      showView({state:'project-view', data:project});
+      notify({
+        status:res.status,
+        message:res.message
+      });
+    });
+  }
+
+  function saveProjectToFile (id) {
+    getProject(id, function (prj) {
+      if (prj) downloadProjectFile(prj);
+    });
+  }
+
   var messenger = null;
   var utils = null;
   var logger = null;
 
   var responders = {
     'ifw-msg-create-project':createProject,
-    'ifw-msg-load-project':loadProject
+    'ifw-msg-load-project':loadProject,
+    'ifw-msg-load-project-from-file':loadProjectFromFile,
+    'ifw-msg-save-project-to-file':saveProjectToFile
   };
 
   function receiveMessage (msg) {
@@ -67,6 +87,10 @@ ifw.app = (function () {
 
   function showView (options) {
     sendMessage('ifw-msg-change-ui-state', options);
+  }
+
+  function downloadProjectFile (project) {
+    sendMessage('ifw-msg-download-project-file', project);
   }
 
   function init (msgr, lggr, utls) {

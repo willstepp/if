@@ -2,11 +2,11 @@
 
 ##TODO
 
-* Persist story in localStorage, using save and load functions
-* Create UI state machine to transition views
-
+* ~~Persist story in localStorage, using save and load functions~~
+* ~~Create UI state machine to transition views~~
 * Display story section in edit area
 * Render story tree
+* Add ability to add passage to story
 * Create links to existing and new sections
 * Export story as JSON
 * Export story as HTML

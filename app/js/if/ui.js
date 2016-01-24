@@ -45,6 +45,7 @@ ifw.ui = (function () {
       html += '<h3>' + project.title + '</h3>';
       html += '<h5>' + project.author + '</h5>';
       html += '<p><em>Created on ' + moment.unix(project.created).format() + '</em></p>';
+      html += '<br><button id="ui-save-project-file-button" data-project-id="' + project.id + '">Save to file</button>';
 
       return html;
     }
@@ -92,12 +93,25 @@ ifw.ui = (function () {
   }
 
   function showNotification (notification) {
-    alert(notification.message);
+    logger.add(notification.message);
+  }
+
+  function downloadProjectFile (project) {
+    var file = new Blob([JSON.stringify(project, null, 2)], {type: 'text/json;charset=utf-8;'});
+    var filename = utils.genProjectFilename(project);
+
+    var url =  navigator.msSaveBlob ? navigator.msSaveBlob(file, filename) : window.URL.createObjectURL(file);
+
+    var link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', filename);
+    link.click();
   }
 
   var responders = {
     'ifw-msg-change-ui-state':changeState,
-    'ifw-msg-notification':showNotification
+    'ifw-msg-notification':showNotification,
+    'ifw-msg-download-project-file':downloadProjectFile
   };
 
   function receiveMessage (msg) {
@@ -117,6 +131,14 @@ ifw.ui = (function () {
 
   function loadProject (id) {
     sendMessage('ifw-msg-load-project', id);
+  }
+
+  function loadProjectFromFile (project) {
+    sendMessage('ifw-msg-load-project-from-file', project);
+  }
+
+  function saveProjectToFile (id) {
+    sendMessage('ifw-msg-save-project-to-file', id);
   }
 
   function el (id) {
@@ -153,15 +175,41 @@ ifw.ui = (function () {
     return evt.target.classList.contains(cls);
   }
 
+  function hasId (evt, id) {
+    return evt.target.getAttribute('id') === id;
+  }
+
+  function setupChangeEventHandlers () {
+    el('ui-load-profile-file').addEventListener('change', function (evt) {
+
+      var file = this.files[0];
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        var project = JSON.parse(reader.result);
+        console.log(project);
+        loadProjectFromFile(project);
+      };
+      reader.readAsText(file);
+
+    });
+  }
+
   function setupClickEventHandlers () {
 
     document.body.addEventListener('click', function (evt) {
-      evt.preventDefault();
+      var id;
 
       if (hasClass(evt, 'ui-project-button')) {
-        var id = evt.target.getAttribute('id');
+        id = evt.target.getAttribute('id');
         loadProject(id);
       }
+
+      if (hasId(evt, 'ui-save-project-file-button')) {
+        id = evt.target.getAttribute('data-project-id');
+        saveProjectToFile(id);
+      }
+
+      return true;
 
     });
 
@@ -170,6 +218,7 @@ ifw.ui = (function () {
   function setupEventHandlers () {
     setupCreateProjectEvent();
     setupClickEventHandlers();
+    setupChangeEventHandlers();
   }
 
   function init (msgr, lggr, utls) {

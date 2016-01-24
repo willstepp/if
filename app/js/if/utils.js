@@ -27,9 +27,14 @@ ifw.utils = (function () {
 
   }
 
+  function genProjectFilename (project) {
+    return [project.title.replace(/\s+/g, '-').toLowerCase(), idPrefix].join('.');
+  }
+
   return {
     genId:genId,
-    genProject:genProject
+    genProject:genProject,
+    genProjectFilename:genProjectFilename
   };
 
 })();
