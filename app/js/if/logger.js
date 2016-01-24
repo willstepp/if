@@ -8,7 +8,6 @@ ifw.logger = (function () {
 
   function add (log) {
     logs.push(log);
-    console.log(log);
   }
 
   function init (msgr, lggr, utls) {

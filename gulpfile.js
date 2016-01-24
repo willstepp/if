@@ -4,7 +4,7 @@ var jshint = require('gulp-jshint');
 //js lint
 gulp.task('lint', function () {
   var pack  = require('./package.json');
-  return gulp.src('app/**/*.js')
+  return gulp.src('app/js/if/*.js')
     .pipe(jshint(pack.jshintConfig))
     .pipe(jshint.reporter('default'));
 });
@@ -29,7 +29,7 @@ gulp.task('sandbox', function () {
 
 //run tasks whenever a lib file changes
 gulp.task('watch', function () {
-  gulp.watch(['app/**/*.js', 'app/**/*.html'], ['lint']);
+  gulp.watch(['app/js/if/*.js', 'app/**/*.html'], ['lint']);
 });
 
 //default task, used in development

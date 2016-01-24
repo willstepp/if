@@ -1,0 +1,22 @@
+{
+  "name": "if",
+  "description": "Interactive Fiction Generator",
+  "main": "",
+  "authors": [
+    "Daniel Stepp <willstepp@gmail.com> (http://monomyth.io)"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/willstepp/if",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "~2.11.1"
+  }
+}

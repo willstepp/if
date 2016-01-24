@@ -1,5 +1,3 @@
-/* global: moment */
-
 var ifw = ifw || {};
 ifw.app = (function () {
 
@@ -9,13 +7,26 @@ ifw.app = (function () {
 
   function createProject (fields) {
 
-    project = utils.projectTemplate();
-    project.title = fields.title;
-    project.author = fields.author;
+    project = utils.genProject({
+      title:fields.title,
+      author:fields.author
+    });
+    saveProject(project, function (res) {
+      nofify({
+        status:res.status,
+        message:res.message
+      });
+    });
 
-    logger.add('creating project...');
-    logger.add(project);
+  }
 
+  function loadProject (id) {
+    getProject(id, function (newProject) {
+      if (newProject) {
+        project = newProject;
+        showView({state:'project-view', data:project});
+      }
+    });
   }
 
   var messenger = null;
@@ -23,11 +34,39 @@ ifw.app = (function () {
   var logger = null;
 
   var responders = {
-    'ifw-app-create-project':createProject
+    'ifw-msg-create-project':createProject,
+    'ifw-msg-load-project':loadProject
   };
 
   function receiveMessage (msg) {
     if (responders[msg.type]) responders[msg.type](msg.body);
+  }
+
+  function sendMessage (type, body) {
+    messenger.send({
+      type:type,
+      body:body
+    });
+  }
+
+  function saveProject (project, callback) {
+    sendMessage('ifw-msg-save-project', {project:project, callback:callback});
+  }
+
+  function getProject (id, callback) {
+    sendMessage('ifw-msg-get-project', {id:id, callback:callback});
+  }
+
+  function listProjects (callback) {
+    sendMessage('ifw-msg-list-projects', {callback:callback});
+  }
+
+  function notify (message) {
+    sendMessage('ifw-msg-notification', message);
+  }
+
+  function showView (options) {
+    sendMessage('ifw-msg-change-ui-state', options);
   }
 
   function init (msgr, lggr, utls) {
@@ -38,7 +77,9 @@ ifw.app = (function () {
   }
 
   function start () {
-    
+    listProjects(function (projects) {
+      showView({state:'project-list', data:projects});
+    });
   }
   
   return {

@@ -8,17 +8,18 @@
     <div>
       <h2>IF - Interactive Fiction Writer</h2>
       <hr>
-      <div id="ui-new-project-content">
+      <div id="ui-view-project-list" class="ui-view">
         <input id="ui-create-project-title" type="text" placeholder="Title"/>
         <input id="ui-create-project-author" type="text" placeholder="Author"/>
-        <button id="ui-create-project-button">Create new story</button>
+        <button id="ui-create-project-button">Create new project</button>
+        <button id="ui-load-project-file-button">Load project from file</button>
+        <div id="ui-project-list"></div>
       </div>
-      <div id="ui-edit-project-content" class="hide">
-        <h3 id="ui-project-title"></h3>
-        <div id="ui-project-tree"></div>
-        <div id="ui-project-section"></div>
+      <div id="ui-view-project-view" class="ui-view">
+        <div id="ui-project-view"></div>
       </div>
     </div>
+    <script src="js/ext/moment/moment.js"></script>
     <script src="js/if/init.js"></script>
     <script src="js/if/messenger.js"></script>
     <script src="js/if/app.js"></script>
