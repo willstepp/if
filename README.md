@@ -63,3 +63,39 @@ Use Vue.js for both tree and markdown editor
   ]
 }
 ```
+
+
+Anytime the text changes, update nav/passage link model. There are a few scenarios:
+
+1) The link in the current passage has no corresponding nav. So scan the existing 
+   passage names for a match and if you find one create a nav with a 
+   reference to the existing passage. If the passage itself does not exist, create 
+   that too.
+
+2) The link in the current passage matches a nav. Do nothing.
+
+3) A nav in the current passage has no corresponding link. Delete the nav and 
+   scan all remaining navs for references to the passage it references. If 1) there 
+   is no content in the passage AND 2) you cannot find another nav which references it,
+   then remove the passage also.
+
+4) Update the nav links below the edit view for the current passage. Show 'new' passages 
+   in a different color (green?), so it will be obvious what needs edited.
+
+
+To do the above, you are going to need both the passage text (converted back to markdown?), 
+as well as a parsed list of all navs->passages for the current passage. This way before you 
+display the passage text for editing, you can replace all references to (ifw-nav-343434343) with 
+the friendly name of the passage, as well as have the data you need to do steps 1-3 above at each 
+edit.
+
+When the application starts up, generate a friendly-name lookup table from passage names -> passages. 
+The data does not need this, only UI.
+
+
+var orig = CodeMirror.hint.javascript;
+CodeMirror.hint.javascript = function(cm) {
+  var inner = orig(cm) || {from: cm.getCursor(), to: cm.getCursor(), list: []};
+  inner.list.push("bozo");
+  return inner.
+};

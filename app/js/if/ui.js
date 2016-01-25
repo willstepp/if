@@ -9,6 +9,8 @@ ifw.ui = (function () {
 
   var currentState = null;
 
+  var textEditor = null;
+
   function hideAllViews () {
     var views = els('ui-view');
     for (var v = 0; v < views.length; v += 1) {
@@ -205,6 +207,16 @@ ifw.ui = (function () {
       }
 
       if (hasId(evt, 'ui-save-project-file-button')) {
+
+        var val = textEditor.getValue();
+        var matches = val.match(/(\[.*\]\(.*\))/g);
+        console.log(matches);
+        var formatted = marked(val);
+
+        console.log(formatted);
+
+        return false;
+
         id = evt.target.getAttribute('data-project-id');
         saveProjectToFile(id);
       }
@@ -221,6 +233,35 @@ ifw.ui = (function () {
     setupChangeEventHandlers();
   }
 
+  function setupTextEditor () {
+
+    textEditor = CodeMirror(el('ui-text-editor'), {
+      value: "## This is a header...",
+      mode:  "markdown",
+      extraKeys: {"Ctrl-Space": "autocomplete"}
+    });
+
+    CodeMirror.registerHelper("hint", "ifw", function (editor, options) {
+      var WORD = /[\w$]+/, RANGE = 500;
+      var word = options && options.word || WORD;
+      var range = options && options.range || RANGE;
+      var cur = editor.getCursor(), curLine = editor.getLine(cur.line);
+      var end = cur.ch, start = end;
+
+      return {list: ['bird', 'dog', 'monkey', 'daniel'], from: CodeMirror.Pos(cur.line, start), to: CodeMirror.Pos(cur.line, end)};
+    });
+
+    textEditor.on('inputRead', function (editor, change) {
+      var curr = change.text[0];
+      var prev = editor.getRange({line:change.to.line, ch:change.to.ch-1}, {line:change.to.line, ch:change.to.ch});
+      if (prev === ']' && curr === '(') CodeMirror.showHint(editor, CodeMirror.hint.ifw);
+    });
+
+    CodeMirror.commands.autocomplete = function (cm) {
+      CodeMirror.showHint(cm, CodeMirror.hint.ifw);
+    };
+  }
+
   function init (msgr, lggr, utls) {
     messenger = msgr;
     messenger.add(receiveMessage);
@@ -229,6 +270,7 @@ ifw.ui = (function () {
     logger = lggr;
 
     setupEventHandlers();
+    setupTextEditor();
   }
 
   return {

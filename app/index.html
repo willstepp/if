@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>IF - Interactive Fiction Writer</title>
+    <link rel="stylesheet" href="css/ext/codemirror/codemirror.css">
+    <link rel="stylesheet" href="css/ext/codemirror/show-hint.css">
     <link href="css/app.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
@@ -18,8 +20,15 @@
       <div id="ui-view-project-view" class="ui-view">
         <div id="ui-project-view"></div>
         <a id="ui-download-file-anchor" class="hide"></a>
+        <div id="ui-text-editor"></div>
       </div>
     </div>
+    <script src="js/ext/marked/marked.js"></script>
+    <script src="js/ext/to-markdown/to-markdown.js"></script>
+    <script src="js/ext/codemirror/codemirror.js"></script>
+    <script src="js/ext/codemirror/markdown.js"></script>
+    <script src="js/ext/codemirror/show-hint.js"></script>
+    <script src="js/ext/codemirror/anyword.js"></script>
     <script src="js/ext/moment/moment.js"></script>
     <script src="js/if/init.js"></script>
     <script src="js/if/messenger.js"></script>
